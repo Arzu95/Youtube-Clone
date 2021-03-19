@@ -16,10 +16,22 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var textView: UITextView!
     
+    var video: Video?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        titleLabel.text = ""
+        dateLabel.text = ""
+        textView.text = ""
+        
+        guard video != nil else{
+            return
+        }
     }
     
 
