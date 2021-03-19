@@ -38,11 +38,12 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
           
           func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             
-            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.VIDEOCELL_ID, for: indexPath)
             
-            let title = self.videos[indexPath.row].title
+            let cell = tableView.dequeueReusableCell(withIdentifier: Constants.VIDEOCELL_ID, for: indexPath) as! VideoTableViewCell
             
-            cell.textLabel?.text = title
+            let video = self.videos[indexPath.row]
+            
+            cell.setCell(video)
             
             return cell
             
@@ -51,5 +52,17 @@ class ViewController: UIViewController, UITableViewDataSource, UITableViewDelega
           func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
           
           }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard tableView.indexPathsForSelectedRows != nil else{
+            return
+        }
+        
+        let selectedVideo = videos[tableView.indexPathForSelectedRow!.row]
+        
+        let detailVC = segue.destination as! DetailViewController
+        
+        detailVC.video = selectedVideo
+    }
           
         }
